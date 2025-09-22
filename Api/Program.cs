@@ -140,7 +140,7 @@ app.MapGet("/administradores", ([FromQuery] int? pagina, IAdministradorServico a
         });
     }
     return Results.Ok(adms);
-}).RequireAuthorization().RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" }).WithTags("Administrador");
+}).RequireAuthorization().WithTags("Administrador");
 
 //rota para retornar apenas 1 administrador
 app.MapGet("/administradores/{id}", ([FromRoute] int id, IAdministradorServico administradorServico) =>
@@ -153,7 +153,7 @@ app.MapGet("/administradores/{id}", ([FromRoute] int id, IAdministradorServico a
         Email = administrador.Email,
         Perfil = administrador.Perfil
     });
-}).RequireAuthorization().RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" }).WithTags("Administrador");
+}).RequireAuthorization().WithTags("Administrador");
 
 //rota para cadastrar usuario
 app.MapPost("/administradores", ([FromBody] AdministradorDTO administradorDTO, IAdministradorServico administradorServico) =>
@@ -187,7 +187,7 @@ app.MapPost("/administradores", ([FromBody] AdministradorDTO administradorDTO, I
         Email = administrador.Email,
         Perfil = administrador.Perfil
     });
-}).RequireAuthorization().RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" }).WithTags("Administrador");
+}).RequireAuthorization().WithTags("Administrador");
 #endregion
 
 #region Veiculos
@@ -228,7 +228,6 @@ app.MapPost("/veiculos", ([FromBody] VeiculoDTO veiculoDTO, IVeiculoServico veic
     return Results.Created($"/veiculo/{veiculo.Id}", veiculo);
 })
 .RequireAuthorization()
-.RequireAuthorization(new AuthorizeAttribute { Roles = "Adm, Editor" })
 .WithTags("Veiculos");
 
 //consulta todos veiculos cadastrados
@@ -238,7 +237,6 @@ app.MapGet("/veiculos", ([FromQuery] int? pagina, IVeiculoServico veiculoServico
     return Results.Ok(veiculos);
 })
 .RequireAuthorization()
-.RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
 .WithTags("Veiculos");
 
 //consulta retorna apenas 1  veiculo pelo ID
@@ -249,7 +247,6 @@ app.MapGet("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServico
     return Results.Ok(veiculo);
 })
 .RequireAuthorization()
-.RequireAuthorization(new AuthorizeAttribute { Roles = "Adm,Editor" })
 .WithTags("Veiculos");
 
 //atualiza o cadastro de um veiculo
@@ -268,7 +265,6 @@ app.MapPut("/veiculos/{id}", ([FromRoute] int id, VeiculoDTO veiculoDTO, IVeicul
     return Results.Ok(veiculo);
 })
 .RequireAuthorization()
-.RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
 .WithTags("Veiculos");
 
 //deleta um veiculo pelo id
@@ -280,7 +276,6 @@ app.MapDelete("/veiculos/{id}", ([FromRoute] int id, IVeiculoServico veiculoServ
     return Results.NoContent();
 })
 .RequireAuthorization()
-.RequireAuthorization(new AuthorizeAttribute { Roles = "Adm" })
 .WithTags("Veiculos");
 #endregion
 
